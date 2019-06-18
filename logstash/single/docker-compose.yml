@@ -1,0 +1,16 @@
+version: '3'
+services:
+  logstash:
+    image: logstash:6.7.0
+    container_name: logstash
+    volumes:
+      - /Users/weidai/shelldir/logstash/config:/usr/share/logstash/config
+      - /Users/weidai/shelldir/logstash/pipeline:/usr/share/logstash/pipeline
+    command:
+      - /bin/sh
+      - -c 
+      - | 
+        logstash-plugin install logstash-input-jdbc
+        logstash -f /usr/share/logstash/pipeline/logstash.conf
+    ports:
+      - 9600:9600
